@@ -1,0 +1,57 @@
+{
+  "name": "portfolio-lens",
+  "version": "0.1.8",
+  "author": "Portfolio Lens",
+  "private": true,
+  "description": "Локальный анализатор инвестиционного портфеля по скриншотам",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win msi && node scripts/build-exe.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "adm-zip": "^0.6.1",
+    "fast-xml-parser": "^5.2.5",
+    "sql.js": "^1.13.0",
+    "tesseract.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "ru.portfoliolens.app",
+    "productName": "Portfolio Lens",
+    "directories": {
+      "output": "release",
+      "buildResources": "assets"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "node_modules/**/*",
+      "!**/*.map"
+    ],
+    "asarUnpack": [
+      "node_modules/tesseract.js-core/**/*",
+      "node_modules/sql.js/dist/**/*"
+    ],
+    "win": {
+      "target": "msi",
+      "icon": "assets/app.ico"
+    },
+    "msi": {
+      "oneClick": false,
+      "perMachine": false,
+      "artifactName": "Portfolio-Lens-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "runAfterFinish": false,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "artifactName": "Portfolio-Lens-Setup-${version}.${ext}"
+    }
+  }
+}
